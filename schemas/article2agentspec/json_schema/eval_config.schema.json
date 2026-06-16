@@ -1,0 +1,183 @@
+{
+  "$defs": {
+    "Claim": {
+      "additionalProperties": false,
+      "description": "A source-grounded claim with fidelity metadata.",
+      "properties": {
+        "value": {
+          "anyOf": [
+            {},
+            {
+              "type": "null"
+            }
+          ],
+          "default": null,
+          "title": "Value"
+        },
+        "fidelity": {
+          "$ref": "#/$defs/FidelityState",
+          "default": "missing"
+        },
+        "evidence_refs": {
+          "items": {
+            "minLength": 1,
+            "type": "string"
+          },
+          "title": "Evidence Refs",
+          "type": "array"
+        },
+        "rationale": {
+          "anyOf": [
+            {
+              "type": "string"
+            },
+            {
+              "type": "null"
+            }
+          ],
+          "default": null,
+          "title": "Rationale"
+        },
+        "candidates": {
+          "items": {
+            "$ref": "#/$defs/ConflictCandidate"
+          },
+          "title": "Candidates",
+          "type": "array"
+        },
+        "conflict_reason": {
+          "anyOf": [
+            {
+              "type": "string"
+            },
+            {
+              "type": "null"
+            }
+          ],
+          "default": null,
+          "title": "Conflict Reason"
+        },
+        "impact": {
+          "anyOf": [
+            {
+              "type": "string"
+            },
+            {
+              "type": "null"
+            }
+          ],
+          "default": null,
+          "title": "Impact"
+        }
+      },
+      "title": "Claim",
+      "type": "object"
+    },
+    "ConflictCandidate": {
+      "additionalProperties": false,
+      "description": "One candidate value preserved for a conflicting source claim.",
+      "properties": {
+        "value": {
+          "title": "Value"
+        },
+        "evidence_refs": {
+          "items": {
+            "minLength": 1,
+            "type": "string"
+          },
+          "title": "Evidence Refs",
+          "type": "array"
+        },
+        "preferred": {
+          "default": false,
+          "title": "Preferred",
+          "type": "boolean"
+        },
+        "rationale": {
+          "anyOf": [
+            {
+              "type": "string"
+            },
+            {
+              "type": "null"
+            }
+          ],
+          "default": null,
+          "title": "Rationale"
+        }
+      },
+      "required": [
+        "value"
+      ],
+      "title": "ConflictCandidate",
+      "type": "object"
+    },
+    "EvalEntry": {
+      "additionalProperties": false,
+      "description": "Basic typed evaluation entry.",
+      "properties": {
+        "id": {
+          "title": "Id",
+          "type": "string"
+        },
+        "task": {
+          "$ref": "#/$defs/Claim"
+        },
+        "dataset": {
+          "$ref": "#/$defs/Claim"
+        },
+        "metrics": {
+          "items": {
+            "$ref": "#/$defs/Claim"
+          },
+          "title": "Metrics",
+          "type": "array"
+        },
+        "baselines": {
+          "items": {
+            "$ref": "#/$defs/Claim"
+          },
+          "title": "Baselines",
+          "type": "array"
+        },
+        "runtime": {
+          "$ref": "#/$defs/Claim"
+        }
+      },
+      "required": [
+        "id"
+      ],
+      "title": "EvalEntry",
+      "type": "object"
+    },
+    "FidelityState": {
+      "description": "Source-fidelity state for an extracted design claim.",
+      "enum": [
+        "explicit",
+        "inferred",
+        "missing",
+        "conflict"
+      ],
+      "title": "FidelityState",
+      "type": "string"
+    }
+  },
+  "additionalProperties": false,
+  "description": "Structured evaluation configuration extracted from the source.",
+  "properties": {
+    "schema_version": {
+      "default": "0.1.0",
+      "title": "Schema Version",
+      "type": "string"
+    },
+    "evaluations": {
+      "items": {
+        "$ref": "#/$defs/EvalEntry"
+      },
+      "title": "Evaluations",
+      "type": "array"
+    }
+  },
+  "title": "EvalConfig",
+  "type": "object"
+}

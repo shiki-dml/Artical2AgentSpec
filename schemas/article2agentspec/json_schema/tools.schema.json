@@ -1,0 +1,174 @@
+{
+  "$defs": {
+    "Claim": {
+      "additionalProperties": false,
+      "description": "A source-grounded claim with fidelity metadata.",
+      "properties": {
+        "value": {
+          "anyOf": [
+            {},
+            {
+              "type": "null"
+            }
+          ],
+          "default": null,
+          "title": "Value"
+        },
+        "fidelity": {
+          "$ref": "#/$defs/FidelityState",
+          "default": "missing"
+        },
+        "evidence_refs": {
+          "items": {
+            "minLength": 1,
+            "type": "string"
+          },
+          "title": "Evidence Refs",
+          "type": "array"
+        },
+        "rationale": {
+          "anyOf": [
+            {
+              "type": "string"
+            },
+            {
+              "type": "null"
+            }
+          ],
+          "default": null,
+          "title": "Rationale"
+        },
+        "candidates": {
+          "items": {
+            "$ref": "#/$defs/ConflictCandidate"
+          },
+          "title": "Candidates",
+          "type": "array"
+        },
+        "conflict_reason": {
+          "anyOf": [
+            {
+              "type": "string"
+            },
+            {
+              "type": "null"
+            }
+          ],
+          "default": null,
+          "title": "Conflict Reason"
+        },
+        "impact": {
+          "anyOf": [
+            {
+              "type": "string"
+            },
+            {
+              "type": "null"
+            }
+          ],
+          "default": null,
+          "title": "Impact"
+        }
+      },
+      "title": "Claim",
+      "type": "object"
+    },
+    "ConflictCandidate": {
+      "additionalProperties": false,
+      "description": "One candidate value preserved for a conflicting source claim.",
+      "properties": {
+        "value": {
+          "title": "Value"
+        },
+        "evidence_refs": {
+          "items": {
+            "minLength": 1,
+            "type": "string"
+          },
+          "title": "Evidence Refs",
+          "type": "array"
+        },
+        "preferred": {
+          "default": false,
+          "title": "Preferred",
+          "type": "boolean"
+        },
+        "rationale": {
+          "anyOf": [
+            {
+              "type": "string"
+            },
+            {
+              "type": "null"
+            }
+          ],
+          "default": null,
+          "title": "Rationale"
+        }
+      },
+      "required": [
+        "value"
+      ],
+      "title": "ConflictCandidate",
+      "type": "object"
+    },
+    "FidelityState": {
+      "description": "Source-fidelity state for an extracted design claim.",
+      "enum": [
+        "explicit",
+        "inferred",
+        "missing",
+        "conflict"
+      ],
+      "title": "FidelityState",
+      "type": "string"
+    },
+    "ToolEntry": {
+      "additionalProperties": false,
+      "description": "Basic typed tool inventory entry.",
+      "properties": {
+        "id": {
+          "title": "Id",
+          "type": "string"
+        },
+        "name": {
+          "title": "Name",
+          "type": "string"
+        },
+        "description": {
+          "$ref": "#/$defs/Claim"
+        },
+        "input_schema": {
+          "$ref": "#/$defs/Claim"
+        },
+        "output_schema": {
+          "$ref": "#/$defs/Claim"
+        }
+      },
+      "required": [
+        "id",
+        "name"
+      ],
+      "title": "ToolEntry",
+      "type": "object"
+    }
+  },
+  "additionalProperties": false,
+  "description": "Structured tool inventory.",
+  "properties": {
+    "schema_version": {
+      "default": "0.1.0",
+      "title": "Schema Version",
+      "type": "string"
+    },
+    "tools": {
+      "items": {
+        "$ref": "#/$defs/ToolEntry"
+      },
+      "title": "Tools",
+      "type": "array"
+    }
+  },
+  "title": "ToolsSpec",
+  "type": "object"
+}

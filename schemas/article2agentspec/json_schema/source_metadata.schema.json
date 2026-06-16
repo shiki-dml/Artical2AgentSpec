@@ -1,0 +1,144 @@
+{
+  "$defs": {
+    "ParserMetadata": {
+      "additionalProperties": false,
+      "description": "Metadata under ``source_metadata.yaml`` -> ``parser``.",
+      "properties": {
+        "name": {
+          "anyOf": [
+            {
+              "type": "string"
+            },
+            {
+              "type": "null"
+            }
+          ],
+          "default": null,
+          "title": "Name"
+        },
+        "version": {
+          "anyOf": [
+            {
+              "type": "string"
+            },
+            {
+              "type": "null"
+            }
+          ],
+          "default": null,
+          "title": "Version"
+        },
+        "parsed_at": {
+          "anyOf": [
+            {
+              "type": "string"
+            },
+            {
+              "type": "null"
+            }
+          ],
+          "default": null,
+          "title": "Parsed At"
+        }
+      },
+      "title": "ParserMetadata",
+      "type": "object"
+    },
+    "SourceDocumentMetadata": {
+      "additionalProperties": false,
+      "description": "Metadata under ``source_metadata.yaml`` -> ``source``.",
+      "properties": {
+        "source_id": {
+          "default": "src_001",
+          "title": "Source Id",
+          "type": "string"
+        },
+        "source_type": {
+          "default": "pdf",
+          "title": "Source Type",
+          "type": "string"
+        },
+        "file_name": {
+          "title": "File Name",
+          "type": "string"
+        },
+        "file_sha256": {
+          "anyOf": [
+            {
+              "type": "string"
+            },
+            {
+              "type": "null"
+            }
+          ],
+          "default": null,
+          "title": "File Sha256"
+        },
+        "page_count": {
+          "anyOf": [
+            {
+              "minimum": 0,
+              "type": "integer"
+            },
+            {
+              "type": "null"
+            }
+          ],
+          "default": null,
+          "title": "Page Count"
+        },
+        "title": {
+          "anyOf": [
+            {
+              "type": "string"
+            },
+            {
+              "type": "null"
+            }
+          ],
+          "default": null,
+          "title": "Title"
+        },
+        "authors": {
+          "items": {
+            "type": "string"
+          },
+          "title": "Authors",
+          "type": "array"
+        },
+        "year": {
+          "anyOf": [
+            {
+              "type": "integer"
+            },
+            {
+              "type": "null"
+            }
+          ],
+          "default": null,
+          "title": "Year"
+        }
+      },
+      "required": [
+        "file_name"
+      ],
+      "title": "SourceDocumentMetadata",
+      "type": "object"
+    }
+  },
+  "additionalProperties": false,
+  "description": "Metadata about the source article and parse process.",
+  "properties": {
+    "source": {
+      "$ref": "#/$defs/SourceDocumentMetadata"
+    },
+    "parser": {
+      "$ref": "#/$defs/ParserMetadata"
+    }
+  },
+  "required": [
+    "source"
+  ],
+  "title": "SourceMetadata",
+  "type": "object"
+}

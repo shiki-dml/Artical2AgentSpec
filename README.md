@@ -7,8 +7,9 @@ The target input for the MVP is a local PDF file. The target output is an
 `agent_package` directory containing human-readable Markdown and
 machine-readable YAML/JSON files.
 
-> Status: specification stage. The project contract is being defined before the
-> Python implementation is added.
+> Status: package skeleton stage. The project contract is defined, and the
+> installable Python package skeleton exists. Conversion logic has not been
+> implemented yet.
 
 ## What It Produces
 
@@ -47,6 +48,9 @@ outputs/paper/
 ```
 
 ## Planned CLI
+
+The package currently exposes placeholder console scripts so installation can be
+verified before conversion logic is added.
 
 Primary command:
 

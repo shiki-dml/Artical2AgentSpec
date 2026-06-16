@@ -1,0 +1,85 @@
+{
+  "$defs": {
+    "GeneratorMetadata": {
+      "additionalProperties": false,
+      "description": "Generator metadata for package manifests.",
+      "properties": {
+        "name": {
+          "default": "article2agentspec",
+          "title": "Name",
+          "type": "string"
+        },
+        "version": {
+          "default": "0.1.0",
+          "title": "Version",
+          "type": "string"
+        }
+      },
+      "title": "GeneratorMetadata",
+      "type": "object"
+    },
+    "ValidationStatus": {
+      "additionalProperties": false,
+      "description": "Validation status summary for package manifests.",
+      "properties": {
+        "status": {
+          "default": "not_run",
+          "title": "Status",
+          "type": "string"
+        },
+        "warnings": {
+          "items": {
+            "type": "string"
+          },
+          "title": "Warnings",
+          "type": "array"
+        }
+      },
+      "title": "ValidationStatus",
+      "type": "object"
+    }
+  },
+  "additionalProperties": false,
+  "description": "Package-level metadata and validation status.",
+  "properties": {
+    "schema_version": {
+      "default": "0.1.0",
+      "title": "Schema Version",
+      "type": "string"
+    },
+    "generator": {
+      "$ref": "#/$defs/GeneratorMetadata"
+    },
+    "source_file": {
+      "title": "Source File",
+      "type": "string"
+    },
+    "generated_at": {
+      "anyOf": [
+        {
+          "type": "string"
+        },
+        {
+          "type": "null"
+        }
+      ],
+      "default": null,
+      "title": "Generated At"
+    },
+    "files": {
+      "items": {
+        "type": "string"
+      },
+      "title": "Files",
+      "type": "array"
+    },
+    "validation": {
+      "$ref": "#/$defs/ValidationStatus"
+    }
+  },
+  "required": [
+    "source_file"
+  ],
+  "title": "Manifest",
+  "type": "object"
+}

@@ -214,8 +214,10 @@ Responsibilities:
 Recommended package layout:
 
 ```text
+pyproject.toml
 article2agentspec/
   __init__.py
+  __main__.py
   cli.py
   pipeline.py
   parsing/
@@ -236,6 +238,7 @@ tests/
 docs/
 schemas/
   article2agentspec/
+    __init__.py
     models.py
     export_json_schema.py
     json_schema/

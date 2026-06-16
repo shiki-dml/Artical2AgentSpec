@@ -1,0 +1,349 @@
+{
+  "$defs": {
+    "AgentDesign": {
+      "additionalProperties": false,
+      "description": "Nested agent design block in ``agent_spec.yaml``.",
+      "properties": {
+        "name": {
+          "$ref": "#/$defs/Claim"
+        },
+        "purpose": {
+          "$ref": "#/$defs/Claim"
+        },
+        "agent_type": {
+          "$ref": "#/$defs/AgentTypeClaim"
+        },
+        "architecture_summary": {
+          "$ref": "#/$defs/Claim"
+        },
+        "modules": {
+          "items": {
+            "$ref": "#/$defs/ModuleEntry"
+          },
+          "title": "Modules",
+          "type": "array"
+        },
+        "memory": {
+          "$ref": "#/$defs/Claim"
+        },
+        "planning": {
+          "$ref": "#/$defs/Claim"
+        },
+        "tool_use": {
+          "$ref": "#/$defs/Claim"
+        },
+        "human_in_the_loop": {
+          "$ref": "#/$defs/Claim"
+        },
+        "runtime_requirements": {
+          "$ref": "#/$defs/Claim"
+        }
+      },
+      "title": "AgentDesign",
+      "type": "object"
+    },
+    "AgentSpecSource": {
+      "additionalProperties": false,
+      "description": "Source block in ``agent_spec.yaml``.",
+      "properties": {
+        "title": {
+          "anyOf": [
+            {
+              "type": "string"
+            },
+            {
+              "type": "null"
+            }
+          ],
+          "default": null,
+          "title": "Title"
+        },
+        "authors": {
+          "items": {
+            "type": "string"
+          },
+          "title": "Authors",
+          "type": "array"
+        },
+        "year": {
+          "anyOf": [
+            {
+              "type": "integer"
+            },
+            {
+              "type": "null"
+            }
+          ],
+          "default": null,
+          "title": "Year"
+        },
+        "source_file": {
+          "title": "Source File",
+          "type": "string"
+        }
+      },
+      "required": [
+        "source_file"
+      ],
+      "title": "AgentSpecSource",
+      "type": "object"
+    },
+    "AgentTypeClaim": {
+      "additionalProperties": false,
+      "description": "Agent-type classification claim using the output-spec ``values`` field.",
+      "properties": {
+        "values": {
+          "items": {
+            "type": "string"
+          },
+          "title": "Values",
+          "type": "array"
+        },
+        "fidelity": {
+          "$ref": "#/$defs/FidelityState",
+          "default": "missing"
+        },
+        "evidence_refs": {
+          "items": {
+            "minLength": 1,
+            "type": "string"
+          },
+          "title": "Evidence Refs",
+          "type": "array"
+        },
+        "rationale": {
+          "anyOf": [
+            {
+              "type": "string"
+            },
+            {
+              "type": "null"
+            }
+          ],
+          "default": null,
+          "title": "Rationale"
+        },
+        "candidates": {
+          "items": {
+            "$ref": "#/$defs/ConflictCandidate"
+          },
+          "title": "Candidates",
+          "type": "array"
+        },
+        "conflict_reason": {
+          "anyOf": [
+            {
+              "type": "string"
+            },
+            {
+              "type": "null"
+            }
+          ],
+          "default": null,
+          "title": "Conflict Reason"
+        },
+        "impact": {
+          "anyOf": [
+            {
+              "type": "string"
+            },
+            {
+              "type": "null"
+            }
+          ],
+          "default": null,
+          "title": "Impact"
+        }
+      },
+      "title": "AgentTypeClaim",
+      "type": "object"
+    },
+    "Claim": {
+      "additionalProperties": false,
+      "description": "A source-grounded claim with fidelity metadata.",
+      "properties": {
+        "value": {
+          "anyOf": [
+            {},
+            {
+              "type": "null"
+            }
+          ],
+          "default": null,
+          "title": "Value"
+        },
+        "fidelity": {
+          "$ref": "#/$defs/FidelityState",
+          "default": "missing"
+        },
+        "evidence_refs": {
+          "items": {
+            "minLength": 1,
+            "type": "string"
+          },
+          "title": "Evidence Refs",
+          "type": "array"
+        },
+        "rationale": {
+          "anyOf": [
+            {
+              "type": "string"
+            },
+            {
+              "type": "null"
+            }
+          ],
+          "default": null,
+          "title": "Rationale"
+        },
+        "candidates": {
+          "items": {
+            "$ref": "#/$defs/ConflictCandidate"
+          },
+          "title": "Candidates",
+          "type": "array"
+        },
+        "conflict_reason": {
+          "anyOf": [
+            {
+              "type": "string"
+            },
+            {
+              "type": "null"
+            }
+          ],
+          "default": null,
+          "title": "Conflict Reason"
+        },
+        "impact": {
+          "anyOf": [
+            {
+              "type": "string"
+            },
+            {
+              "type": "null"
+            }
+          ],
+          "default": null,
+          "title": "Impact"
+        }
+      },
+      "title": "Claim",
+      "type": "object"
+    },
+    "ConflictCandidate": {
+      "additionalProperties": false,
+      "description": "One candidate value preserved for a conflicting source claim.",
+      "properties": {
+        "value": {
+          "title": "Value"
+        },
+        "evidence_refs": {
+          "items": {
+            "minLength": 1,
+            "type": "string"
+          },
+          "title": "Evidence Refs",
+          "type": "array"
+        },
+        "preferred": {
+          "default": false,
+          "title": "Preferred",
+          "type": "boolean"
+        },
+        "rationale": {
+          "anyOf": [
+            {
+              "type": "string"
+            },
+            {
+              "type": "null"
+            }
+          ],
+          "default": null,
+          "title": "Rationale"
+        }
+      },
+      "required": [
+        "value"
+      ],
+      "title": "ConflictCandidate",
+      "type": "object"
+    },
+    "FidelityState": {
+      "description": "Source-fidelity state for an extracted design claim.",
+      "enum": [
+        "explicit",
+        "inferred",
+        "missing",
+        "conflict"
+      ],
+      "title": "FidelityState",
+      "type": "string"
+    },
+    "ModuleEntry": {
+      "additionalProperties": false,
+      "description": "Basic typed module entry for ``agent_spec.yaml``.",
+      "properties": {
+        "id": {
+          "title": "Id",
+          "type": "string"
+        },
+        "name": {
+          "title": "Name",
+          "type": "string"
+        },
+        "role": {
+          "$ref": "#/$defs/Claim"
+        },
+        "inputs": {
+          "items": {
+            "type": "string"
+          },
+          "title": "Inputs",
+          "type": "array"
+        },
+        "outputs": {
+          "items": {
+            "type": "string"
+          },
+          "title": "Outputs",
+          "type": "array"
+        },
+        "dependencies": {
+          "items": {
+            "type": "string"
+          },
+          "title": "Dependencies",
+          "type": "array"
+        }
+      },
+      "required": [
+        "id",
+        "name"
+      ],
+      "title": "ModuleEntry",
+      "type": "object"
+    }
+  },
+  "additionalProperties": false,
+  "description": "Primary machine-readable agent design specification.",
+  "properties": {
+    "schema_version": {
+      "default": "0.1.0",
+      "title": "Schema Version",
+      "type": "string"
+    },
+    "source": {
+      "$ref": "#/$defs/AgentSpecSource"
+    },
+    "agent": {
+      "$ref": "#/$defs/AgentDesign"
+    }
+  },
+  "required": [
+    "source"
+  ],
+  "title": "AgentSpec",
+  "type": "object"
+}

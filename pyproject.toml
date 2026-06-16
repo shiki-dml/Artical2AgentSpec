@@ -1,0 +1,40 @@
+[build-system]
+requires = ["setuptools>=68"]
+build-backend = "setuptools.build_meta"
+
+[project]
+name = "article2agentspec"
+version = "0.1.0"
+description = "Convert LLM agent architecture articles into evidence-grounded agent design packages."
+readme = "README.md"
+requires-python = ">=3.10"
+license = "MIT"
+authors = [
+  { name = "Article2AgentSpec contributors" }
+]
+keywords = [
+  "agents",
+  "llm",
+  "pdf",
+  "specification",
+  "workflow"
+]
+classifiers = [
+  "Development Status :: 2 - Pre-Alpha",
+  "Environment :: Console",
+  "Intended Audience :: Developers",
+  "Programming Language :: Python :: 3",
+  "Programming Language :: Python :: 3.10",
+  "Programming Language :: Python :: 3.11",
+  "Programming Language :: Python :: 3.12",
+  "Programming Language :: Python :: 3.13",
+  "Topic :: Software Development :: Documentation"
+]
+dependencies = []
+
+[project.scripts]
+article2agentspec = "article2agentspec.cli:main"
+a2as = "article2agentspec.cli:main"
+
+[tool.setuptools.packages.find]
+include = ["article2agentspec*", "schemas*"]

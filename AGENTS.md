@@ -98,7 +98,10 @@ not as source truth. LLM guesses must never be marked `explicit`.
 Recommended implementation layout:
 
 ```text
+pyproject.toml
 article2agentspec/
+  __init__.py
+  __main__.py
   cli.py
   pipeline.py
   parsing/
@@ -129,6 +132,31 @@ implementation code.
 - Do not write output files from partially validated data.
 - Do not commit generated debug artifacts unless explicitly requested.
 
+## Code Standards
+
+Use the lightweight project standard:
+
+- Use `ruff` for formatting and linting.
+- Use `pytest` for tests.
+- Do not enable `mypy` yet.
+- Keep type annotations on public functions, public methods, schema boundaries,
+  and pipeline boundaries.
+- Prefer precise domain models over unbounded `dict[str, Any]` at module
+  boundaries.
+- Keep `cli.py` thin. It should parse arguments, call the pipeline, and format
+  user-facing errors.
+- Keep `pipeline.py` focused on orchestration. It should not parse PDFs, extract
+  claims, validate schemas, or write files directly.
+- Keep `parsing` responsible for source reading and locators only.
+- Keep `extraction` responsible for draft structured claims only.
+- Keep `validation` responsible for schema, fidelity, and evidence checks only.
+- Keep `writing` responsible for writing already-validated packages only.
+- Library code should not call `print`; reserve console output for the CLI
+  layer.
+- Do not introduce runtime dependencies without a clear MVP need.
+- Prefer deterministic behavior by default. Optional LLM behavior must remain
+  explicit and isolated.
+
 ## Testing Guidelines
 
 Tests should cover:
@@ -142,6 +170,9 @@ Tests should cover:
 - JSON Schema export
 
 Default tests must not require external LLM API keys.
+
+Use focused pytest tests for each module boundary. Prefer small fixtures and
+deterministic inputs over broad integration tests while the MVP is being built.
 
 When the project has a test runner configured, run the relevant tests before
 claiming implementation work is complete.
