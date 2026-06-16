@@ -30,7 +30,17 @@ classifiers = [
   "Programming Language :: Python :: 3.13",
   "Topic :: Software Development :: Documentation"
 ]
-dependencies = []
+dependencies = [
+  "pydantic>=2",
+  "pypdf>=5",
+  "PyYAML>=6",
+]
+
+[project.optional-dependencies]
+dev = [
+  "pytest>=8",
+  "ruff>=0.6",
+]
 
 [project.scripts]
 article2agentspec = "article2agentspec.cli:main"

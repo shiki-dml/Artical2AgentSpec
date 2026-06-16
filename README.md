@@ -7,9 +7,9 @@ The target input for the MVP is a local PDF file. The target output is an
 `agent_package` directory containing human-readable Markdown and
 machine-readable YAML/JSON files.
 
-> Status: package skeleton stage. The project contract is defined, and the
-> installable Python package skeleton exists. Conversion logic has not been
-> implemented yet.
+> Status: MVP CLI stage. The project contract is defined, and the CLI can run a
+> conservative local PDF conversion through `parse -> extract -> validate ->
+> write`.
 
 ## What It Produces
 
@@ -47,10 +47,9 @@ outputs/paper/
   evidence_report.md
 ```
 
-## Planned CLI
+## CLI
 
-The package currently exposes placeholder console scripts so installation can be
-verified before conversion logic is added.
+The package exposes two console scripts for local PDF conversion.
 
 Primary command:
 
@@ -76,13 +75,17 @@ Debug artifacts:
 article2agentspec convert path/to/paper.pdf --debug
 ```
 
-The required pipeline is:
+The CLI runs the required pipeline:
 
 ```text
 parse -> extract -> validate -> write
 ```
 
 Normal output must not be written before validation passes.
+
+The current extractor is a deterministic conservative baseline. It writes the
+required MVP package files, preserves parsed source text, and marks unsupported
+agent design fields as `missing` instead of guessing.
 
 ## Fidelity Policy
 
